@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <title>Access Blocked - Technitium DNS</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 2L4 8v9c0 7.5 5 13 12 15 7-2 12-7.5 12-15V8Z' fill='%23dc2626'/%3E%3Cline x1='11' y1='11' x2='21' y2='21' stroke='white' stroke-width='2.5' stroke-linecap='round'/%3E%3Cline x1='21' y1='11' x2='11' y2='21' stroke='white' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      --bg:              #f3f4f8;
+      --grid-line:       transparent;
+      --radial:          rgba(180, 20, 20, 0.06);
+      --card-bg:         rgba(255, 255, 255, 0.97);
+      --card-border:     rgba(220, 38, 38, 0.14);
+      --card-shadow:     0 0 0 1px rgba(220,38,38,0.05), 0 24px 64px rgba(0,0,0,0.12), 0 0 80px rgba(180,20,20,0.04);
+      --badge-bg:        rgba(220, 38, 38, 0.07);
+      --badge-border:    rgba(220, 38, 38, 0.22);
+      --badge-text:      #b91c1c;
+      --dot-color:       #ef4444;
+      --h1:              #111128;
+      --subtitle:        #5a5a7a;
+      --domain-bg:       rgba(0, 0, 0, 0.04);
+      --domain-border:   rgba(0, 0, 0, 0.08);
+      --domain-icon:     #8888aa;
+      --domain-label:    #9999bb;
+      --domain-value:    #4040c0;
+      --divider:         rgba(0, 0, 0, 0.07);
+      --meta-key:        #aaaacc;
+      --meta-val:        #55557a;
+      --footer-border:   rgba(0, 0, 0, 0.07);
+      --footer-text:     #aaaacc;
+      --footer-strong:   #7777aa;
+      --info-bg:         rgba(251, 191, 36, 0.10);
+      --info-border:     rgba(251, 191, 36, 0.35);
+      --info-label:      #92400e;
+      --info-text:       #78350f;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg:              #07070f;
+        --grid-line:       rgba(255, 50, 50, 0.03);
+        --radial:          rgba(180, 20, 20, 0.10);
+        --card-bg:         rgba(14, 14, 24, 0.95);
+        --card-border:     rgba(220, 38, 38, 0.18);
+        --card-shadow:     0 0 0 1px rgba(220,38,38,0.06), 0 24px 64px rgba(0,0,0,0.70), 0 0 100px rgba(180,20,20,0.07);
+        --badge-bg:        rgba(220, 38, 38, 0.12);
+        --badge-border:    rgba(220, 38, 38, 0.28);
+        --badge-text:      #f87171;
+        --dot-color:       #ef4444;
+        --h1:              #f0f0f6;
+        --subtitle:        #8888b0;
+        --domain-bg:       rgba(6, 6, 14, 0.70);
+        --domain-border:   rgba(255, 255, 255, 0.07);
+        --domain-icon:     #8888aa;
+        --domain-label:    #6e6e98;
+        --domain-value:    #a5b4fc;
+        --divider:         rgba(255, 255, 255, 0.06);
+        --meta-key:        #6e6e98;
+        --meta-val:        #a0a0c8;
+        --footer-border:   rgba(255, 255, 255, 0.05);
+        --footer-text:     #6060a0;
+        --footer-strong:   #8888c0;
+        --info-bg:         rgba(245, 158, 11, 0.08);
+        --info-border:     rgba(245, 158, 11, 0.35);
+        --info-label:      #f6ad55;
+        --info-text:       #fbd38d;
+      }
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      overflow-x: hidden;
+      overflow-y: auto;
+      padding: 24px 16px;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--grid-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 700px;
+      height: 500px;
+      background: radial-gradient(ellipse, var(--radial) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .card {
+      position: relative;
+      z-index: 1;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 12px 48px 12px;
+      max-width: 540px;
+      width: 92%;
+      text-align: center;
+      box-shadow: var(--card-shadow);
+      animation: enter 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    @keyframes enter {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .rig-wrap {
+      position: relative;
+      width: 160px;
+      height: 160px;
+      margin: 0 auto 10px;
+    }
+
+    .rig-wrap canvas {
+      width: 100%;
+      height: 100%;
+    }
+
+    .rig-logo {
+      position: absolute;
+      width: 70px;
+      height: 70px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--badge-bg);
+      border: 1px solid var(--badge-border);
+      color: var(--badge-text);
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 100px;
+      margin-bottom: 22px;
+    }
+
+    .badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--dot-color);
+      box-shadow: 0 0 7px var(--dot-color);
+      animation: blink 1.6s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+      0%,100% { opacity: 1; }
+      50%      { opacity: 0.25; }
+    }
+
+    h1 {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--h1);
+      letter-spacing: -0.02em;
+      margin-bottom: 9px;
+    }
+
+    .subtitle {
+      font-size: 14.5px;
+      color: var(--subtitle);
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+
+    .domain-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--domain-bg);
+      border: 1px solid var(--domain-border);
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin-bottom: 12px;
+      text-align: left;
+    }
+
+    .domain-icon { flex-shrink: 0; color: #ef4444; }
+
+    .domain-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--domain-label);
+      margin-bottom: 4px;
+    }
+
+    .domain-value {
+      font-family: 'SF Mono', 'Cascadia Code', Consolas, monospace;
+      font-size: 13.5px;
+      color: var(--domain-value);
+      font-weight: 500;
+      word-break: break-all;
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--divider), transparent);
+      margin: 0 0 22px;
+    }
+
+    .meta {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12.5px;
+    }
+
+    .meta-key { color: var(--meta-key); }
+
+    .meta-val {
+      color: var(--meta-val);
+      font-weight: 500;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Blocking info injected by server */
+    .blocking-info { margin-bottom: 22px; text-align: left; }
+
+    .blocking-info p {
+      background: var(--info-bg);
+      border: 1px solid var(--info-border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 12.5px;
+      color: var(--info-text);
+      line-height: 1.65;
+    }
+
+    .blocking-info p b {
+      display: block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--info-label);
+      margin-bottom: 3px;
+      text-align: center;
+    }
+
+    .blocking-info p .info-key {
+      font-weight: 600;
+      color: var(--info-label);
+    }
+
+    .footer {
+      border-top: 1px solid var(--footer-border);
+      padding-top: 20px;
+      font-size: 12px;
+      color: var(--footer-text);
+      line-height: 1.7;
+    }
+
+    .footer strong { color: var(--footer-strong); }
+
+    @media (max-width: 480px) {
+      .card { padding: 36px 24px 30px; }
+      h1 { font-size: 22px; }
+      .rig-wrap { width: 160px; height: 160px; }
+      .rig-logo { width: 58px; height: 58px; }
+    }
+
+    @media (max-width: 360px) {
+      .card { padding: 28px 18px 24px; }
+      h1 { font-size: 20px; }
+      .subtitle { font-size: 13px; }
+      .rig-wrap { width: 140px; height: 140px; }
+      .rig-logo { width: 50px; height: 50px; }
+    }
+  </style>
+</head>
+<body>
+<div class="card">
+
+  <div class="rig-wrap">
+    <canvas id="rig" width="190" height="190"></canvas>
+    <img id="rig-logo" class="rig-logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADaSURBVGhD7ZMxDgQhDAPvtfeney2nFJYoMIu1QSysR3IVS8kU+Xx/peyccwSeRH0gA3MLzAA39e7C3AIzwE29uzA/R2AkjFY3KwzMLRC0ullhYH75A5jf7WSDfRYIRjrZYJ8FgpFONthngaDuZIeBuQWCupMdBuZLBRhKxwJB3VHCUDoWCOqOEobSsUBQd5QwlM67BLLDUDoWuBOG0rkUyAb7ejuVjgVUsK+3U+lYQAX7ejuVzvkCmM8Io9VlscCdMFpdFkngSeAmC6wCN1lgFbjpHIFds7lAKX/RSQm5zZ5zzwAAAABJRU5ErkJggg==" alt="">
+  </div>
+
+  <div class="badge">Access Blocked</div>
+
+  <h1>Website Blocked</h1>
+  <p class="subtitle">Access to this site has been denied by<br>your network security policy.</p>
+
+  <div class="domain-box">
+    <svg class="domain-icon" width="20" height="20" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="10"/>
+      <line x1="2" y1="12" x2="22" y2="12"/>
+      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+    </svg>
+    <div>
+      <div class="domain-label">Blocked domain</div>
+      <div class="domain-value" id="blocked-domain">—</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="blocking-info">{BLOCKING-INFO}</div>
+
+  <div class="meta">
+    <div class="meta-row">
+      <span class="meta-key">Policy</span>
+      <span class="meta-val">Network Content Filter</span>
+    </div>
+    <div class="meta-row">
+      <span class="meta-key">Action</span>
+      <span class="meta-val">Request Denied</span>
+    </div>
+    <div class="meta-row">
+      <span class="meta-key">Date &amp; Time</span>
+      <span class="meta-val" id="req-time">—</span>
+    </div>
+  </div>
+
+  <div class="footer">
+    Managed by <strong>Technitium DNS</strong><br>
+    If you believe this is an error, contact your network administrator.
+  </div>
+
+</div>
+<script>
+  // Splash rig canvas animation
+  (function () {
+    var canvas = document.getElementById('rig');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var logo = document.getElementById('rig-logo');
+    var W = canvas.width, H = canvas.height;
+    var cx = W / 2, cy = H / 2;
+    var outerR = W / 2 * 0.87;
+    var midR   = W / 2 * 0.75;
+    var innerR = W / 2 * 0.62;
+    var orbitR = W / 2 * 0.75;
+    var dnsTypes = ['A', 'AAAA', 'MX', 'NS', 'SOA', 'CNAME', 'PTR'];
+    var startTime = null;
+    var isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var labelRgb = isDark ? '0,229,255' : '29,78,216';
+
+    function frame(now) {
+      if (!startTime) startTime = now;
+      var t = (now - startTime) / 1000;
+      var outerAngle = (t / 6)   * Math.PI * 2;
+      var innerAngle = -(t / 3.8) * Math.PI * 2;
+      var beat14    = 0.5 + 0.5 * Math.sin(t * Math.PI * 2 / 1.4);
+      var beat06    = 0.5 + 0.5 * Math.sin(t * Math.PI * 2 / 0.6);
+      var glowAlpha = 0.12 + 0.18 * beat14;
+      var glowPulse = 0.55 + 0.45 * beat06;
+      var logoScale = 0.93 + 0.14 * beat14;
+      var flashPhase = (t / 3.2) % 1;
+
+      ctx.clearRect(0, 0, W, H);
+
+      // Radial background glow
+      var g = ctx.createRadialGradient(cx, cy, 0, cx, cy, outerR * 1.35);
+      g.addColorStop(0,   'rgba(41,121,255,' + glowAlpha + ')');
+      g.addColorStop(0.5, 'rgba(41,121,255,' + (glowAlpha * 0.3) + ')');
+      g.addColorStop(1,   'rgba(41,121,255,0)');
+      ctx.beginPath(); ctx.arc(cx, cy, outerR * 1.35, 0, Math.PI * 2);
+      ctx.fillStyle = g; ctx.fill();
+
+      // Radar sweep on mid ring
+      var radarAngle = outerAngle * 1.2;
+      for (var s = 0; s < 10; s++) {
+        var tEnd = radarAngle;
+        var tStart = tEnd - (10 - s) * 7 * Math.PI / 180 - s * 7 * Math.PI / 180;
+        ctx.beginPath(); ctx.arc(cx, cy, midR, tStart, tEnd);
+        ctx.strokeStyle = 'rgba(68,138,255,' + (0.18 * (10 - s) / 10) + ')';
+        ctx.lineWidth = 1; ctx.stroke();
+      }
+      ctx.beginPath(); ctx.moveTo(cx, cy);
+      ctx.lineTo(cx + midR * Math.cos(radarAngle), cy + midR * Math.sin(radarAngle));
+      ctx.strokeStyle = 'rgba(68,138,255,0.40)'; ctx.lineWidth = 1; ctx.stroke();
+
+      // Static mid ring
+      ctx.beginPath(); ctx.arc(cx, cy, midR, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(41,121,255,0.12)'; ctx.lineWidth = 1; ctx.stroke();
+
+      // Outer ring: 6 arc segments clockwise
+      for (var i = 0; i < 6; i++) {
+        var sa = outerAngle + i * Math.PI / 3;
+        ctx.beginPath(); ctx.arc(cx, cy, outerR, sa, sa + 44 * Math.PI / 180);
+        ctx.strokeStyle = i % 2 === 0 ? 'rgba(41,121,255,0.90)' : 'rgba(41,121,255,0.22)';
+        ctx.lineWidth = 3; ctx.lineCap = 'round'; ctx.stroke();
+      }
+
+      // Inner ring: 3 arc segments counter-clockwise
+      for (var i = 0; i < 3; i++) {
+        var sa = innerAngle + i * 2 * Math.PI / 3;
+        ctx.beginPath(); ctx.arc(cx, cy, innerR, sa, sa + 68 * Math.PI / 180);
+        ctx.strokeStyle = 'rgba(0,176,255,0.82)';
+        ctx.lineWidth = 2; ctx.lineCap = 'round'; ctx.stroke();
+      }
+
+      // Tick marks on outer ring
+      for (var i = 0; i < 16; i++) {
+        var ta = i * 22.5 * Math.PI / 180 + outerAngle * 0.30;
+        var isM = i % 4 === 0;
+        ctx.beginPath();
+        ctx.moveTo(cx + (outerR + (isM ? -7 : -3)) * Math.cos(ta),
+                   cy + (outerR + (isM ? -7 : -3)) * Math.sin(ta));
+        ctx.lineTo(cx + (outerR + (isM ?  6 :  2)) * Math.cos(ta),
+                   cy + (outerR + (isM ?  6 :  2)) * Math.sin(ta));
+        ctx.strokeStyle = 'rgba(41,121,255,' + (isM ? 0.65 : 0.22) + ')';
+        ctx.lineWidth = isM ? 1.8 : 1; ctx.stroke();
+      }
+
+      // Outer glow dot + trail
+      for (var tr = 4; tr >= 1; tr--) {
+        var ta = outerAngle - tr * 9 * Math.PI / 180;
+        ctx.beginPath();
+        ctx.arc(cx + outerR * Math.cos(ta), cy + outerR * Math.sin(ta),
+                Math.max(5 - tr, 1), 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(0,229,255,' + (0.30 / tr * glowPulse) + ')'; ctx.fill();
+      }
+      ctx.beginPath();
+      ctx.arc(cx + outerR * Math.cos(outerAngle), cy + outerR * Math.sin(outerAngle),
+              5, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(0,229,255,' + glowPulse + ')'; ctx.fill();
+
+      // Inner glow dot + trail
+      for (var tr = 4; tr >= 1; tr--) {
+        var ta = innerAngle + tr * 12 * Math.PI / 180;
+        ctx.beginPath();
+        ctx.arc(cx + innerR * Math.cos(ta), cy + innerR * Math.sin(ta),
+                Math.max(4 - tr, 1), 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(0,176,255,' + (0.35 / tr * glowPulse) + ')'; ctx.fill();
+      }
+      ctx.beginPath();
+      ctx.arc(cx + innerR * Math.cos(innerAngle), cy + innerR * Math.sin(innerAngle),
+              4, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(0,176,255,' + (glowPulse * 0.9) + ')'; ctx.fill();
+
+      // DNS type labels orbiting
+      ctx.font = 'bold 9px monospace';
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      dnsTypes.forEach(function (type, idx) {
+        var angle = idx * (2 * Math.PI / dnsTypes.length) + outerAngle * 0.42;
+        var slot  = idx / dnsTypes.length;
+        var delta = (flashPhase - slot) % 1;
+        if (delta < 0) delta += 1;
+        var fa = delta < 0.10 ? delta / 0.10
+               : delta < 0.38 ? 1
+               : delta < 0.58 ? 1 - (delta - 0.38) / 0.20 : 0;
+        ctx.fillStyle = 'rgba(' + labelRgb + ',' + Math.max(0, Math.min(1, fa)) + ')';
+        ctx.fillText(type, cx + orbitR * Math.cos(angle), cy + orbitR * Math.sin(angle));
+      });
+
+      // Pulse the logo
+      if (logo) logo.style.transform = 'translate(-50%,-50%) scale(' + logoScale + ')';
+
+      requestAnimationFrame(frame);
+    }
+
+    requestAnimationFrame(frame);
+  })();
+
+  (function () {
+    // Domain and time
+    var h = window.location.hostname || window.location.host || 'Unknown';
+    document.getElementById('blocked-domain').textContent = h;
+    (function () {
+      var d = new Date();
+      var days   = ['Sun','Mon','Tues','Wed','Thurs','Fri','Sat'];
+      var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      var day = d.getDate();
+      var sfx = (day === 1 || day === 21 || day === 31) ? 'st'
+              : (day === 2 || day === 22)               ? 'nd'
+              : (day === 3 || day === 23)               ? 'rd' : 'th';
+      var h = d.getHours(), m = d.getMinutes();
+      var ampm = h >= 12 ? 'pm' : 'am';
+      h = h % 12 || 12;
+      document.getElementById('req-time').textContent =
+        days[d.getDay()] + ', ' + months[d.getMonth()] + ' ' + day + sfx +
+        ' - ' + h + ':' + (m < 10 ? '0' : '') + m + ampm;
+    })();
+
+    // Reformat {BLOCKING-INFO} content injected by server.
+    // Raw format: <p><b>Detailed Info</b><br>Blocked: domain=x; type=block-list-zone; blocklistURL=https://...</p>
+    var infoEl = document.querySelector('.blocking-info p');
+    if (!infoEl) return;
+
+    var inner = infoEl.innerHTML;
+    // Remove the header <b>...</b><br>
+    inner = inner.replace(/^\s*<b>[^<]*<\/b>\s*<br\s*\/?>/i, '');
+    var lines = inner.split(/<br\s*\/?>/i).map(function (l) { return l.trim(); }).filter(Boolean);
+
+    var blockedBy = [];
+    var urls = [];
+
+    lines.forEach(function (line) {
+      var ci = line.indexOf(': ');
+      var extra = ci >= 0 ? line.substring(ci + 2) : '';
+
+      var pairs = {};
+      extra.split(';').forEach(function (part) {
+        part = part.trim();
+        var eq = part.indexOf('=');
+        if (eq < 0) return;
+        var k = part.substring(0, eq).trim();
+        var v = part.substring(eq + 1).trim();
+        if (k) pairs[k] = v;
+      });
+
+      var source = pairs['source'] || '';
+      var label = source === 'block-list-zone' ? 'URL Blocklist'
+                : source === 'blocked-zone'    ? 'Local Blocked Zone'
+                : null;
+      if (label && blockedBy.indexOf(label) < 0)
+        blockedBy.push(label);
+
+      var url = pairs['blockListUrl'] || pairs['url'] || '';
+      if (url && urls.indexOf(url) < 0)
+        urls.push(url);
+    });
+
+    if (!blockedBy.length && !urls.length) return;
+
+    var html = '<b>Blocking Info</b>';
+    if (blockedBy.length)
+      html += '<span class="info-key">Blocked Using:</span><br> ' + blockedBy.join(', ');
+    if (urls.length)
+      html += '<br><span class="info-key">Blocklist URL:</span><br>' + urls.join('<br>');
+    infoEl.innerHTML = html;
+  })();
+</script>
+</body>
+</html>
