@@ -21,6 +21,24 @@ A custom block page for [Technitium DNS Server](https://technitium.com/dns/) wit
 ### URL Blocklist detail (light mode)
 ![URL Blocklist detail](screenshots/light-mode-blocklist-urls.png)
 
+## Prerequisites — Pending PR
+
+The `{BLOCKING-INFO}` placeholder that powers the detailed blocking info cards relies on a fix that has been submitted to the Technitium DNS Server project but **has not yet been merged or released**. Without it, the placeholder is not substituted when serving a custom static `index.html` from the web server root.
+
+> **PR:** [TechnitiumSoftware/DnsServer #1897](https://github.com/TechnitiumSoftware/DnsServer/pull/1897)
+
+Until the PR is merged and included in an official release, you can use the patched `BlockPageApp.dll` included in this repo to get the feature working today.
+
+### Applying the patched DLL
+
+1. Find your Technitium DNS installation folder (typically `/etc/dns/` on Linux or `C:\Program Files\Technitium\DNS Server\` on Windows).
+2. Inside that folder, open `apps\Block Page App\`.
+3. Stop the Technitium DNS service.
+4. Replace `BlockPageApp.dll` with the one from this repo.
+5. Restart the Technitium DNS service.
+
+> **Note:** The patched DLL will be overwritten if you update the Block Page App through the Technitium UI. Re-apply after any app update until the PR is merged.
+
 ## Installation
 
 1. In Technitium DNS, install the **Block Page App** from the Apps section.
