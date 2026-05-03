@@ -10,7 +10,7 @@ A custom block page for [Technitium DNS Server](https://technitium.com/dns/) wit
 
 ## Demo
 
-https://github.com/Hemsby/TDNS-BlockPage/blob/main/screenshots/block-page-demo.mp4
+<video src="screenshots/block-page-demo.mp4" controls title="Block page demo – light and dark mode"></video>
 
 ## Screenshots
 
