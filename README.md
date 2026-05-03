@@ -8,6 +8,10 @@ A custom block page for [Technitium DNS Server](https://technitium.com/dns/) wit
 - Displays blocked domain, block reason (Local Block Zone or URL Blocklist), and blocklist URLs
 - Red shield favicon
 
+## Demo
+
+https://github.com/Hemsby/TDNS-BlockPage/blob/main/screenshots/block-page-demo.mp4
+
 ## Screenshots
 
 | Light mode | Dark mode |
