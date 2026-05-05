@@ -1,5 +1,6 @@
 # TDNS-BlockPage
 A custom block page for [Technitium DNS Server](https://technitium.com/dns/) with light/dark mode support, animated splash logo, and detailed blocking info.
+This is ONLY available on V15.1 onwards.
 
 ## Features
 
