@@ -261,6 +261,8 @@
       font-size: 12.5px;
       color: var(--info-text);
       line-height: 1.65;
+      word-break: break-all;
+      overflow-wrap: break-word;
     }
 
     .blocking-info p b {
@@ -514,6 +516,11 @@
 
     // Reformat {BLOCKING-INFO} content injected by server.
     // Raw format: <p><b>Detailed Info</b><br>Blocked: domain=x; type=block-list-zone; blocklistURL=https://...</p>
+    var infoDiv = document.querySelector('.blocking-info');
+    if (infoDiv && infoDiv.innerHTML.trim() === '{BLOCKING-INFO}') {
+      infoDiv.innerHTML = '<p><b>Blocking Info</b><span class="info-key">Detailed Blocking Info:</span><br> Disabled</p>';
+      return;
+    }
     var infoEl = document.querySelector('.blocking-info p');
     if (!infoEl) return;
 
