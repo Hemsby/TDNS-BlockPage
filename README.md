@@ -49,5 +49,24 @@ Until the PR is merged and included in an official release, you can use the patc
 ## EDNS EDE Info
 
 The page parses the `{BLOCKING-INFO}` placeholder injected by Technitium and formats it into human-readable cards showing:
-- **Blocked by:** Local Block Zone or URL Blocklist
+- **Blocked by:** Local Block Zone, URL Blocklist, or Advanced Blocking (with group name if configured)
 - **Blocklist URL(s):** the source list(s) the domain was found on
+
+## Using with the Advanced Blocking App
+
+The block page supports the **Advanced Blocking App** out of the box. To get blocking info displayed:
+
+1. In the **Advanced Blocking App** config, enable:
+   ```json
+   "allowTxtBlockingReport": true
+   ```
+2. In the **Block Page App** config, ensure:
+   ```json
+   "includeBlockingInfo": true
+   ```
+
+When a domain is blocked by the Advanced Blocking App the blocking info card will show:
+- **Blocked Using:** Advanced Blocking *(Group: your-group-name)*
+- **Blocklist URL:** the list the domain was matched against (for URL and regex list blocks)
+
+> **Note:** If `allowTxtBlockingReport` is left disabled, the blocking info card will show **Detailed Blocking Info: Disabled** regardless of the Block Page App setting.

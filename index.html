@@ -547,13 +547,14 @@
       });
 
       var source = pairs['source'] || '';
-      var label = source === 'block-list-zone' ? 'URL Blocklist'
-                : source === 'blocked-zone'    ? 'Local Blocked Zone'
+      var label = source === 'block-list-zone'      ? 'URL Blocklist'
+                : source === 'blocked-zone'          ? 'Local Blocked Zone'
+                : source === 'advanced-blocking-app' ? 'Advanced Blocking' + (pairs['group'] ? ' (' + pairs['group'] + ')' : '')
                 : null;
       if (label && blockedBy.indexOf(label) < 0)
         blockedBy.push(label);
 
-      var url = pairs['blockListUrl'] || pairs['url'] || '';
+      var url = pairs['blockListUrl'] || pairs['regexBlockListUrl'] || pairs['url'] || '';
       if (url && urls.indexOf(url) < 0)
         urls.push(url);
     });
