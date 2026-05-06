@@ -52,6 +52,17 @@ The page parses the `{BLOCKING-INFO}` placeholder injected by Technitium and for
 - **Blocked by:** Local Block Zone, URL Blocklist, or Advanced Blocking (with group name if configured)
 - **Blocklist URL(s):** the source list(s) the domain was found on
 
+## Enabling Blocking Info (Standard Blocking)
+
+For the blocking info card to show when using standard blocked zones or block lists, two settings must be enabled:
+
+1. In the Technitium Web GUI, go to **Settings → Blocking** and enable **Allow TXT Blocking Report**. Without this, the DNS server will not include blocking details in the response and the card will show **Detailed Blocking Info: Disabled**.
+
+2. In the **Block Page App** config, ensure:
+   ```json
+   "includeBlockingInfo": true
+   ```
+
 ## Using with the Advanced Blocking App
 
 The block page supports the **Advanced Blocking App** out of the box. To get blocking info displayed:
