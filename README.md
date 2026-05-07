@@ -22,13 +22,23 @@ This is ONLY available on V15.1 onwards.
 ### URL Blocklist detail (light mode)
 ![URL Blocklist detail](screenshots/light-mode-blocklist-urls.png)
 
-## Prerequisites — Pending PR
+## Prerequisites — Pending PRs
 
-The `{BLOCKING-INFO}` placeholder that powers the detailed blocking info cards relies on a fix that has been submitted to the Technitium DNS Server project but **has not yet been merged or released**. Without it, the placeholder is not substituted when serving a custom static `index.html` from the web server root.
+The `BlockPageApp.dll` included in this repo contains two fixes that have been submitted to the Technitium DNS Server project but **have not yet been merged or released**.
+
+### Fix 1 — `{BLOCKING-INFO}` substitution in static file mode
+
+Without this fix, the `{BLOCKING-INFO}` placeholder is not substituted when serving a custom static `index.html` from the web server root (`serveBlockPageFromWebServerRoot: true`).
 
 > **PR:** [TechnitiumSoftware/DnsServer #1897](https://github.com/TechnitiumSoftware/DnsServer/pull/1897)
 
-Until the PR is merged and included in an official release, you can use the patched `BlockPageApp.dll` included in this repo to get the feature working today.
+### Fix 2 — Wrong group name shown in blocking info
+
+When a client hits the block page, the app makes a secondary DNS query to retrieve the EDE blocking info (group name, blocklist URL, etc.) to display on the page. Without this fix, that re-query uses `0.0.0.0` as the client address, so the Advanced Blocking App always maps it to the catch-all group — meaning the group name shown on the page is wrong even though the block itself was applied correctly.
+
+> **PR:** [TechnitiumSoftware/DnsServer #1913](https://github.com/TechnitiumSoftware/DnsServer/pull/1913)
+
+Until both PRs are merged and included in an official release, you can use the patched `BlockPageApp.dll` included in this repo to get both fixes today.
 
 ### Applying the patched DLL
 
